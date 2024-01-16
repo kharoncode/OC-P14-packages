@@ -1,5 +1,5 @@
 {
-   "name": "oc-p14-database",
+   "name": "hrnet-database",
    "version": "1.0.0",
    "description": "A Data Base component for OC-P14-HRNet",
    "main": "index.ts",
