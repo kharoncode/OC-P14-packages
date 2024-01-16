@@ -8,7 +8,7 @@ export default defineConfig({
    plugins: [react(), dts({ insertTypesEntry: true })],
    build: {
       lib: {
-         entry: path.resolve(__dirname, 'src/index.tsx'),
+         entry: path.resolve(__dirname, 'src/index.ts'),
          name: 'oc-p14-dataBase',
          fileName: 'my-lib',
       },

@@ -1,9 +1,8 @@
 {
    "name": "oc-p14-database",
-   "private": true,
    "version": "1.0.0",
    "description": "A Data Base component for OC-P14-HRNet",
-   "main": "index.tsx",
+   "main": "index.ts",
    "type": "module",
    "scripts": {
       "dev": "vite",
