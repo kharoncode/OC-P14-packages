@@ -1,8 +1,23 @@
-type dataType = {
-   name: string;
+type employee = {
+   firstName: string;
+   lastName: string;
+   dateOfBirth: string;
+   startDate: string;
+   department: string;
+   street: string;
+   city: string;
+   state: string;
+   zipCode: number;
 };
 
-export const DataBase = (data: dataType) => {
-   const { name } = data;
-   return <div>Data Base : {name}</div>;
+type employeeList = employee[];
+
+type props = {
+   employeeList: employeeList;
+};
+
+export const DataBase = (props: props) => {
+   const { employeeList } = props;
+   console.log(employeeList);
+   return <div></div>;
 };
