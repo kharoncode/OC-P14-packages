@@ -10,7 +10,7 @@ export default defineConfig({
       lib: {
          entry: path.resolve(__dirname, 'src/index.ts'),
          name: 'oc-p14-dataBase',
-         fileName: 'my-lib',
+         fileName: 'index',
       },
       rollupOptions: {
          external: ['react', 'react-dom'],
