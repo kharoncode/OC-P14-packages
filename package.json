@@ -1,9 +1,10 @@
 {
    "name": "hrnet-database",
-   "version": "1.0.3",
-   "description": "A Data Base component for OC-P14-HRNet",
-   "main": "index.ts",
+   "private": false,
+   "version": "1.0.4",
    "type": "module",
+   "description": "A Data Base component for OC-P14-HRNet",
+   "main": "index.js",
    "scripts": {
       "dev": "vite",
       "build": "tsc && vite build && cp package.json README.md ./dist",

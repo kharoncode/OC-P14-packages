@@ -1,4 +1,6 @@
+import styles from './dataBase.module.css';
 type employee = {
+   id: string;
    firstName: string;
    lastName: string;
    dateOfBirth: string;
@@ -18,6 +20,11 @@ type props = {
 
 export const DataBase = (props: props) => {
    const { employeeList } = props;
-   console.log(employeeList);
-   return <div></div>;
+   return (
+      <div className={styles.container}>
+         {employeeList.map((el: employee) => {
+            return <div key={el.id}>First id : {el.id}</div>;
+         })}
+      </div>
+   );
 };
