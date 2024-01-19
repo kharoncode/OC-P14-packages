@@ -21,4 +21,3 @@ To install, you can use [npm](https://npmjs.org/) or [yarn](https://yarnpkg.com)
     children: string | JSX.Element;
     background?: string;
     modal?: string;
-    navigation?: { link: string; style?: string; text?: string };

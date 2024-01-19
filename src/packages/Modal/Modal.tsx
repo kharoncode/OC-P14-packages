@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import styles from './modal.module.css';
 import closeIcone from '../../assets/icones/close.svg';
-import { useNavigate } from 'react-router-dom';
 
 type propsType = {
    open: boolean;
@@ -9,7 +7,6 @@ type propsType = {
    children: string | JSX.Element;
    background?: string;
    modal?: string;
-   navigation?: { link: string; style?: string; text?: string };
 };
 
 const Container = styled.div<{ display: string; $style: string }>`
@@ -28,8 +25,12 @@ const ModalContainer = styled.div<{ $style: string }>`
    ${({ $style }) => $style}
 `;
 
-const NavButton = styled.div<{ $style: string }>`
-   ${({ $style }) => $style}
+const CloseButton = styled.img`
+   position: absolute;
+   top: 20px;
+   right: 20px;
+   height: 20px;
+   width: 20px;
 `;
 
 const defaultContainerStyle = `
@@ -51,48 +52,21 @@ const defaultModalStyle = `
    color: black;
    `;
 
-const defaultNavButtonStyle = `
-display: flex;
-justify-content: center;
-align-items: center;
-background-color: #5955b3;
-color:white;
-padding:5px 10px 5px 10px;
-border-radius:10px;
-font-weight:500;
-   `;
-
 export const Modal = (props: propsType) => {
-   const navigate = useNavigate();
-   const { open, setOpen, children, background, modal, navigation } = props;
+   const { open, setOpen, children, background, modal } = props;
    const display = open ? 'flex' : 'none';
    const containerStyle = background ? background : defaultContainerStyle;
    const modalStyle = modal ? modal : defaultModalStyle;
-   const navButtonStyle = navigation?.style
-      ? navigation.style
-      : defaultNavButtonStyle;
+
    return (
       <Container display={display} $style={containerStyle}>
          <ModalContainer $style={modalStyle}>
-            <img
+            <CloseButton
                src={closeIcone}
                alt="Close"
-               className={styles.closeButton}
                onClick={() => setOpen(!open)}
             />
             {children}
-            {navigation ? (
-               <NavButton
-                  $style={navButtonStyle}
-                  onClick={() => {
-                     navigate(`/${navigation.link}/`);
-                  }}
-               >
-                  {navigation.text ? navigation.text : 'OK'}
-               </NavButton>
-            ) : (
-               <></>
-            )}
          </ModalContainer>
       </Container>
    );
