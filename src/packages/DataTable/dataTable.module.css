@@ -1,3 +1,31 @@
 .container {
    display: flex;
+   flex-direction: column;
+   gap: 10px;
+}
+
+.columnsContainer {
+   display: flex;
+   justify-content: space-between;
+   gap: 5px;
+}
+
+.rowsContainer {
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
+}
+
+.row {
+   display: flex;
+   justify-content: space-between;
+   gap: 5px;
+}
+
+.item {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100px;
+   height: 50px;
 }

@@ -1,30 +1,59 @@
+import { useState } from 'react';
 import styles from './dataTable.module.css';
-type employee = {
-   id: string;
-   firstName: string;
-   lastName: string;
-   dateOfBirth: string;
-   startDate: string;
-   department: string;
-   street: string;
-   city: string;
-   state: string;
-   zipCode: number;
+import Column from './components/column/Column';
+
+export type dataContent = {
+   [key: string]: number | string;
 };
 
-type employeeList = employee[];
+export type data = dataContent[];
+
+export type column = { title: string; data: string };
+
+export type columns = column[];
 
 type props = {
-   employeeList: employeeList;
+   data: data;
+   columns: columns;
 };
 
 export const DataTable = (props: props) => {
-   const { employeeList } = props;
+   const { data, columns } = props;
+   const columnsId = columns.map((el) => el.data);
+   const [newData, setNewData] = useState(data);
+   const [isColumnSelected, setIsColumnSelected] = useState(columns[0].data);
+
    return (
       <div className={styles.container}>
-         {employeeList.map((el: employee) => {
-            return <div key={el.id}>First id : {el.id}</div>;
-         })}
+         <div className={styles.columnsContainer}>
+            {columns.map((el: column) => {
+               return (
+                  <Column
+                     key={el.data}
+                     column={el}
+                     data={data}
+                     setNewData={setNewData}
+                     isColumnSelected={isColumnSelected}
+                     setIsColumnSelected={setIsColumnSelected}
+                  />
+               );
+            })}
+         </div>
+         <div className={styles.rowsContainer}>
+            {newData.map((el: dataContent) => {
+               return (
+                  <div key={el.id} className={styles.row}>
+                     {columnsId.map((id) => {
+                        return (
+                           <div key={`${el.id}-${id}`} className={styles.item}>
+                              {el[id]}
+                           </div>
+                        );
+                     })}
+                  </div>
+               );
+            })}
+         </div>
       </div>
    );
 };

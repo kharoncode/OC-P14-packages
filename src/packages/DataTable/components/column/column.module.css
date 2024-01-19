@@ -1,0 +1,14 @@
+.columnsContainer {
+   display: flex;
+   justify-content: space-between;
+   gap: 5px;
+}
+
+.item {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100px;
+   height: 50px;
+   cursor: pointer;
+}
