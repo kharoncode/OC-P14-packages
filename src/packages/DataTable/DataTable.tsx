@@ -1,4 +1,4 @@
-import styles from './dataBase.module.css';
+import styles from './dataTable.module.css';
 type employee = {
    id: string;
    firstName: string;
@@ -18,7 +18,7 @@ type props = {
    employeeList: employeeList;
 };
 
-export const DataBase = (props: props) => {
+export const DataTable = (props: props) => {
    const { employeeList } = props;
    return (
       <div className={styles.container}>
