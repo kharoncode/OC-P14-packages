@@ -54,6 +54,10 @@ export const DataTable = (props: props) => {
                );
             })}
          </div>
+         <div className={styles.info}>
+            <div>Showing {data.length} entries</div>
+            <div>Prev / Next</div>
+         </div>
       </div>
    );
 };
