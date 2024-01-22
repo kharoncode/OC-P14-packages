@@ -9,7 +9,7 @@ export default defineConfig({
    build: {
       lib: {
          entry: path.resolve(__dirname, 'src/index.ts'),
-         name: 'oc-p14-dataBase',
+         name: 'hrnet-packages',
          fileName: 'index',
       },
       rollupOptions: {
