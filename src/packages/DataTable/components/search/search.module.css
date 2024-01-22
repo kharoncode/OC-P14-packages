@@ -1,4 +1,19 @@
 .container {
+   position: relative;
    display: flex;
+   justify-content: flex-end;
+   align-items: center;
    gap: 5px;
+}
+
+.container input {
+   padding-left: 10px;
+   width: 150px;
+   height: 30px;
+}
+
+.reset {
+   position: absolute;
+   width: 15px;
+   right: 5px;
 }

@@ -41,7 +41,7 @@ export const DataTable = (props: props) => {
                );
             })}
          </div>
-         {data.length > 0 ? (
+         {newData.length > 0 ? (
             <div className={styles.rowsContainer}>
                {newData.map((el: dataContent) => {
                   return (
