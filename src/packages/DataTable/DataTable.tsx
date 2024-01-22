@@ -26,7 +26,19 @@ export const DataTable = (props: props) => {
 
    return (
       <div className={styles.container}>
-         <Search data={data} setNewData={setNewData} />
+         <div className={styles.headerContainer}>
+            <div className={styles.selectContainer}>
+               <label htmlFor="showSelect">Show</label>
+               <select name="showSelect" id="showSelect">
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+               </select>
+               entries
+            </div>
+            <Search data={data} setNewData={setNewData} />
+         </div>
          <div className={styles.columnsContainer}>
             {columns.map((el: column) => {
                return (

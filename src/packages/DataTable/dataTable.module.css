@@ -4,6 +4,17 @@
    gap: 10px;
 }
 
+.headerContainer {
+   display: flex;
+   justify-content: space-between;
+}
+
+.selectContainer {
+   display: flex;
+   align-items: center;
+   gap: 5px;
+}
+
 .columnsContainer {
    display: flex;
    justify-content: space-between;
