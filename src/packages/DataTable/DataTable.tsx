@@ -39,21 +39,29 @@ export const DataTable = (props: props) => {
                );
             })}
          </div>
-         <div className={styles.rowsContainer}>
-            {newData.map((el: dataContent) => {
-               return (
-                  <div key={el.id} className={styles.row}>
-                     {columnsId.map((id) => {
-                        return (
-                           <div key={`${el.id}-${id}`} className={styles.item}>
-                              {el[id]}
-                           </div>
-                        );
-                     })}
-                  </div>
-               );
-            })}
-         </div>
+         {data.length > 0 ? (
+            <div className={styles.rowsContainer}>
+               {newData.map((el: dataContent) => {
+                  return (
+                     <div key={el.id} className={styles.row}>
+                        {columnsId.map((id) => {
+                           return (
+                              <div
+                                 key={`${el.id}-${id}`}
+                                 className={`${styles.item} ${id}`}
+                              >
+                                 {el[id]}
+                              </div>
+                           );
+                        })}
+                     </div>
+                  );
+               })}
+            </div>
+         ) : (
+            <div className={styles.noData}>No data available in table</div>
+         )}
+
          <div className={styles.info}>
             <div>Showing {data.length} entries</div>
             <div>Prev / Next</div>

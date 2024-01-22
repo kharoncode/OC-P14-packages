@@ -6,3 +6,7 @@
    height: 50px;
    cursor: pointer;
 }
+
+.active {
+   background-color: rgba(192, 192, 192, 0.2);
+}

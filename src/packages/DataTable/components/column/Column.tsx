@@ -10,6 +10,18 @@ type props = {
    setIsColumnSelected: React.Dispatch<React.SetStateAction<string>>;
 };
 
+const columnSelected = (
+   isColumnSelected: string,
+   prevColumnSelected: string
+) => {
+   const prevColumnItem_elts = document.querySelectorAll(
+      `.${prevColumnSelected}`
+   );
+   const columnItem_elts = document.querySelectorAll(`.${isColumnSelected}`);
+   prevColumnItem_elts.forEach((el) => el.classList.remove(`${styles.active}`));
+   columnItem_elts.forEach((el) => el.classList.add(`${styles.active}`));
+};
+
 const Column = (props: props) => {
    const { column, data, setNewData, isColumnSelected, setIsColumnSelected } =
       props;
@@ -56,6 +68,7 @@ const Column = (props: props) => {
                  )
                : setNewData(newData.sort((a, b) => sortTable(a, b, column)));
             setReverse(!isReverse);
+            columnSelected(column.data, isColumnSelected);
          }}
       >
          {column.title}

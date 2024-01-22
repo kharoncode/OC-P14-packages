@@ -11,6 +11,10 @@
    border-bottom: solid 2px black;
 }
 
+.noData {
+   text-align: center;
+}
+
 .rowsContainer {
    display: flex;
    flex-direction: column;
@@ -21,6 +25,10 @@
    display: flex;
    justify-content: space-between;
    gap: 5px;
+}
+
+.row:nth-child(odd) {
+   background-color: rgb(117, 117, 117, 0.1);
 }
 
 .item {
