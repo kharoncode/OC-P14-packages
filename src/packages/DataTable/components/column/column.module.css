@@ -2,9 +2,25 @@
    display: flex;
    justify-content: center;
    align-items: center;
-   width: 100px;
+   width: 110px;
    height: 50px;
    cursor: pointer;
+   gap: 5px;
+}
+
+.item img {
+   width: 10px;
+}
+
+.arrowInactive {
+   filter: invert(69%) sepia(64%) saturate(3%) hue-rotate(132deg)
+      brightness(93%) contrast(91%);
+}
+
+.arrowsContainer {
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 
 .active {

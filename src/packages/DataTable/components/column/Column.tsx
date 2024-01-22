@@ -1,6 +1,9 @@
 import styles from './column.module.css';
 import { useState } from 'react';
 import type { column, data, dataContent } from '../../DataTable';
+import sortUp from '../../../../assets/icones/sortUp.svg';
+import sortDown from '../../../../assets/icones/sortDown.svg';
+import sort from '../../../../assets/icones/sort.svg';
 
 type props = {
    column: column;
@@ -72,6 +75,17 @@ const Column = (props: props) => {
          }}
       >
          {column.title}
+         {isColumnSelected !== column.data ? (
+            <img src={sort} alt="" className={styles.arrowInactive} />
+         ) : (
+            <div className={styles.arrowsContainer}>
+               {reverse ? (
+                  <img src={sortUp} alt="up" />
+               ) : (
+                  <img src={sortDown} alt="down" />
+               )}
+            </div>
+         )}
       </div>
    );
 };
