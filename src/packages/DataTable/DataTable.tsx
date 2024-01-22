@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './dataTable.module.css';
 import Column from './components/column/Column';
+import Search from './components/search/Search';
 
 export type dataContent = {
    [key: string]: number | string;
@@ -25,13 +26,14 @@ export const DataTable = (props: props) => {
 
    return (
       <div className={styles.container}>
+         <Search data={data} setNewData={setNewData} />
          <div className={styles.columnsContainer}>
             {columns.map((el: column) => {
                return (
                   <Column
                      key={el.data}
                      column={el}
-                     data={data}
+                     data={newData}
                      setNewData={setNewData}
                      isColumnSelected={isColumnSelected}
                      setIsColumnSelected={setIsColumnSelected}
