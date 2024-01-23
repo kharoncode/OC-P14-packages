@@ -7,7 +7,7 @@ export type dataContent = {
    [key: string]: number | string;
 };
 
-export type data = dataContent[];
+export type data = { [key: string]: dataContent };
 
 export type column = { title: string; data: string };
 
@@ -21,7 +21,7 @@ type props = {
 export const DataTable = (props: props) => {
    const { data, columns } = props;
    const columnsId = columns.map((el) => el.data);
-   const [newData, setNewData] = useState(data);
+   const [dataList, setDataList] = useState(Object.keys(data));
    const [isColumnSelected, setIsColumnSelected] = useState(columns[0].data);
 
    return (
@@ -37,7 +37,7 @@ export const DataTable = (props: props) => {
                </select>
                entries
             </div>
-            <Search data={data} setNewData={setNewData} />
+            <Search data={data} list={dataList} setDataList={setDataList} />
          </div>
          <div className={styles.columnsContainer}>
             {columns.map((el: column) => {
@@ -45,26 +45,27 @@ export const DataTable = (props: props) => {
                   <Column
                      key={el.data}
                      column={el}
-                     data={newData}
-                     setNewData={setNewData}
+                     data={data}
+                     list={dataList}
+                     setDataList={setDataList}
                      isColumnSelected={isColumnSelected}
                      setIsColumnSelected={setIsColumnSelected}
                   />
                );
             })}
          </div>
-         {newData.length > 0 ? (
+         {dataList.length > 0 ? (
             <div className={styles.rowsContainer}>
-               {newData.map((el: dataContent) => {
+               {dataList.map((el: string) => {
                   return (
-                     <div key={el.id} className={styles.row}>
+                     <div key={`${el}-row`} className={styles.row}>
                         {columnsId.map((id) => {
                            return (
                               <div
-                                 key={`${el.id}-${id}`}
+                                 key={`${el}-${id}`}
                                  className={`${styles.item} ${id}`}
                               >
-                                 {el[id]}
+                                 {data[el][id]}
                               </div>
                            );
                         })}
@@ -77,7 +78,7 @@ export const DataTable = (props: props) => {
          )}
 
          <div className={styles.info}>
-            <div>Showing {data.length} entries</div>
+            <div>Showing {Object.keys(data).length} entries</div>
             <div>Prev / Next</div>
          </div>
       </div>

@@ -1,6 +1,6 @@
 import styles from './column.module.css';
 import { useState } from 'react';
-import type { column, data, dataContent } from '../../DataTable';
+import type { column, data } from '../../DataTable';
 import sortUp from '../../../../assets/icones/sortUp.svg';
 import sortDown from '../../../../assets/icones/sortDown.svg';
 import sort from '../../../../assets/icones/sort.svg';
@@ -8,7 +8,8 @@ import sort from '../../../../assets/icones/sort.svg';
 type props = {
    column: column;
    data: data;
-   setNewData: React.Dispatch<React.SetStateAction<data>>;
+   list: string[];
+   setDataList: React.Dispatch<React.SetStateAction<string[]>>;
    isColumnSelected: string;
    setIsColumnSelected: React.Dispatch<React.SetStateAction<string>>;
 };
@@ -26,29 +27,36 @@ const columnSelected = (
 };
 
 const Column = (props: props) => {
-   const { column, data, setNewData, isColumnSelected, setIsColumnSelected } =
-      props;
+   const {
+      column,
+      data,
+      list,
+      setDataList,
+      isColumnSelected,
+      setIsColumnSelected,
+   } = props;
    const [reverse, setReverse] = useState(false);
 
-   const sortTable = (a: dataContent, b: dataContent, column: column) => {
-      if (a[column.data] < b[column.data]) {
+   const sortTable = (a: string, b: string, column: column, data: data) => {
+      if (data[a][column.data] < data[b][column.data]) {
          return -1;
       }
-      if (a[column.data] > b[column.data]) {
+      if (data[a][column.data] > data[b][column.data]) {
          return 1;
       }
       return 0;
    };
 
    const reverseSortTable = (
-      a: dataContent,
-      b: dataContent,
-      column: column
+      a: string,
+      b: string,
+      column: column,
+      data: data
    ) => {
-      if (a[column.data] > b[column.data]) {
+      if (data[a][column.data] > data[b][column.data]) {
          return -1;
       }
-      if (a[column.data] < b[column.data]) {
+      if (data[a][column.data] < data[b][column.data]) {
          return 1;
       }
       return 0;
@@ -64,12 +72,14 @@ const Column = (props: props) => {
                isReverse = false;
             }
             setIsColumnSelected(column.data);
-            const newData = [...data];
+            const newList = [...list];
             isReverse
-               ? setNewData(
-                    newData.sort((a, b) => reverseSortTable(a, b, column))
+               ? setDataList(
+                    newList.sort((a, b) => reverseSortTable(a, b, column, data))
                  )
-               : setNewData(newData.sort((a, b) => sortTable(a, b, column)));
+               : setDataList(
+                    newList.sort((a, b) => sortTable(a, b, column, data))
+                 );
             setReverse(!isReverse);
             columnSelected(column.data, isColumnSelected);
          }}
