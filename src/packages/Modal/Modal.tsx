@@ -26,6 +26,7 @@ export const Modal = (props: propsType) => {
             `.${styles.container}`
          ) as HTMLElement;
          Object.keys(background).map((key) => {
+            // @ts-expect-error : key in style[key] should be a number
             container.style[key] = background[key];
          });
       }
@@ -38,6 +39,7 @@ export const Modal = (props: propsType) => {
          ) as HTMLElement;
 
          Object.keys(modal).map((key) => {
+            // @ts-expect-error : key in style[key] should be a number
             modalContainer.style[key] = modal[key];
          });
       }
