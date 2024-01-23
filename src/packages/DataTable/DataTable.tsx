@@ -105,7 +105,7 @@ export const DataTable = (props: props) => {
                <div className={styles.pagesList}>
                   Prev
                   {[...Array(Math.ceil(dataList.length / tableLength))].map(
-                     (e, i) => {
+                     (_e, i) => {
                         return (
                            <button key={i} onClick={() => setPage(i + 1)}>
                               {i + 1}
