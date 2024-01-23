@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import './dataTable.css';
 import styles from './dataTable.module.css';
 import Column from './components/column/Column';
 import Search from './components/search/Search';
@@ -18,13 +19,34 @@ type props = {
    columns: columns;
 };
 
+const columnSelected = (isColumnSelected: string) => {
+   const items_elts = document.querySelectorAll(`.${styles.item}`);
+   const columnItem_elts = document.querySelectorAll(`.${isColumnSelected}`);
+   if (columnItem_elts) {
+      items_elts.forEach((el) => el.classList.remove(`active`));
+      columnItem_elts.forEach((el) => el.classList.add(`active`));
+   }
+};
+
 export const DataTable = (props: props) => {
    const { data, columns } = props;
    const columnsId = columns.map((el) => el.data);
    const [dataList, setDataList] = useState(Object.keys(data));
-   const [isColumnSelected, setIsColumnSelected] = useState(columns[0].data);
+   const [isColumnSelected, setIsColumnSelected] = useState('null');
    const [tableLength, setTableLength] = useState(10);
    const [page, setPage] = useState(1);
+
+   useEffect(() => {
+      columnSelected(isColumnSelected);
+   }, [isColumnSelected]);
+
+   useEffect(() => {
+      const columnItem_elts = document.querySelectorAll(`.${isColumnSelected}`);
+      if (columnItem_elts) {
+         columnItem_elts.forEach((el) => el.classList.add(`active`));
+      }
+      /* eslint-disable */
+   }, [page, dataList]);
 
    return (
       <div className={styles.container}>
