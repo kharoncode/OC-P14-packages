@@ -58,3 +58,8 @@
    height: 50px;
    border-top: solid 2px black;
 }
+
+.pagesList {
+   display: flex;
+   gap: 5px;
+}
