@@ -5,19 +5,20 @@ import { ChangeEvent } from 'react';
 
 type props = {
    data: data;
-   list: string[];
    setDataList: React.Dispatch<React.SetStateAction<string[]>>;
+   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const Search = (props: props) => {
-   const { data, list, setDataList } = props;
+   const { data, setDataList, setPage } = props;
+   const list = Object.keys(data);
 
    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-      let tempList = [...list];
+      let tempList = list;
       const values = e.target.value;
       if (values !== '') {
          values.split(' ').map((value) => {
-            const temp = [...list].filter((el) =>
+            const temp = list.filter((el) =>
                Object.values(data[el]).some((val) =>
                   val
                      .toString()
@@ -34,11 +35,12 @@ const Search = (props: props) => {
                });
             });
 
-            tempList = [...newList];
+            tempList = newList;
          });
+         setPage(1);
          setDataList(tempList);
       } else {
-         tempList = [...list];
+         tempList = list;
          setDataList(list);
       }
    };

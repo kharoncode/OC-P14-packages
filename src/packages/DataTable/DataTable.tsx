@@ -65,11 +65,7 @@ export const DataTable = (props: props) => {
                </select>
                entries
             </div>
-            <Search
-               data={data}
-               list={Object.keys(data)}
-               setDataList={setDataList}
-            />
+            <Search data={data} setDataList={setDataList} setPage={setPage} />
          </div>
          <div className={styles.columnsContainer}>
             {columns.map((el: column) => {
