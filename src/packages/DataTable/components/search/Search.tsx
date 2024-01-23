@@ -1,7 +1,7 @@
 import { data } from '../../DataTable';
 import styles from './search.module.css';
 import reset from '../../../../assets/icones/close.svg';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 
 type props = {
    data: data;
@@ -10,36 +10,36 @@ type props = {
 };
 
 const Search = (props: props) => {
-   const { data, setDataList } = props;
-   const [tempData, setTempData] = useState(data);
+   const { data, list, setDataList } = props;
 
    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+      let tempList = [...list];
       const values = e.target.value;
       if (values !== '') {
          values.split(' ').map((value) => {
-            const dataToFiltered = { ...data };
-            const dataFiltered: data = {};
-            const temp = Object.keys(dataToFiltered).filter((el) =>
-               Object.keys(dataToFiltered[el]).some((key) =>
-                  dataToFiltered[el][key]
+            const temp = [...list].filter((el) =>
+               Object.values(data[el]).some((val) =>
+                  val
                      .toString()
                      .toLowerCase()
                      .includes(value.toString().toLowerCase())
                )
             );
-            temp.map((key) => {
-               dataFiltered[key] = dataToFiltered[key];
+            const newList: string[] = [];
+            tempList.map((el) => {
+               temp.map((tempEl) => {
+                  if (el === tempEl) {
+                     newList.push(el);
+                  }
+               });
             });
-            setTempData(dataFiltered);
+
+            tempList = [...newList];
          });
-         if (Object.keys(tempData).length !== 0) {
-            setDataList(tempData);
-         } else {
-            setDataList({});
-         }
+         setDataList(tempList);
       } else {
-         setTempData(data);
-         setDataList(data);
+         tempList = [...list];
+         setDataList(list);
       }
    };
 
@@ -62,7 +62,7 @@ const Search = (props: props) => {
                   'search'
                ) as HTMLInputElement;
                searchInput_elt.value = '';
-               setDataList(data);
+               setDataList(list);
             }}
          />
       </div>
