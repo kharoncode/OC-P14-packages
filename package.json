@@ -1,7 +1,7 @@
 {
    "name": "hrnet-packages",
    "private": false,
-   "version": "1.0.12",
+   "version": "1.0.13",
    "type": "module",
    "description": "A Data Base component for OC-P14-HRNet",
    "main": "index.js",
