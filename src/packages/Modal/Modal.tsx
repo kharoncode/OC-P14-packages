@@ -7,12 +7,11 @@ type propsType = {
    open: boolean;
    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
    children: string | JSX.Element;
-   background?: { [key: string]: string };
-   modal?: { [key: string]: string };
+   style?: { [key: string]: { [key: string]: string } };
 };
 
 export const Modal = (props: propsType) => {
-   const { open, setOpen, children, background, modal } = props;
+   const { open, setOpen, children, style } = props;
 
    useEffect(() => {
       const container = document.querySelector(
@@ -22,12 +21,12 @@ export const Modal = (props: propsType) => {
    }, [open]);
 
    useEffect(() => {
-      customStyle(background, styles.container);
-   }, [background]);
-
-   useEffect(() => {
-      customStyle(modal, styles.modalContainer);
-   }, [modal]);
+      if (style) {
+         Object.keys(style).map((key) => {
+            customStyle(style[key], styles[key]);
+         });
+      }
+   }, [style]);
 
    return (
       <div className={styles.container}>
