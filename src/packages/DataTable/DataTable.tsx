@@ -3,6 +3,8 @@ import './dataTable.css';
 import styles from './dataTable.module.css';
 import Column from './components/column/Column';
 import Search from './components/search/Search';
+import backIcone from '../../assets/icones/back.svg';
+import nextIcone from '../../assets/icones/next.svg';
 
 export type dataContent = {
    [key: string]: number | string;
@@ -108,30 +110,73 @@ export const DataTable = (props: props) => {
          )}
 
          <div className={styles.info}>
-            <div>
-               Showing{' '}
-               {dataList.length === 0
-                  ? 0
-                  : page * tableLength - (tableLength - 1)}{' '}
-               to{' '}
-               {page * tableLength > dataList.length
-                  ? dataList.length
-                  : page * tableLength}{' '}
-               of {Object.keys(data).length} entries
-            </div>
+            {dataList.length === Object.keys(data).length ? (
+               <div>
+                  Showing{' '}
+                  {dataList.length === 0
+                     ? 0
+                     : page * tableLength - (tableLength - 1)}{' '}
+                  to{' '}
+                  {page * tableLength > dataList.length
+                     ? dataList.length
+                     : page * tableLength}{' '}
+                  of {Object.keys(data).length} entries
+               </div>
+            ) : (
+               <div>
+                  Showing{' '}
+                  {dataList.length === 0
+                     ? 0
+                     : page * tableLength - (tableLength - 1)}{' '}
+                  to{' '}
+                  {page * tableLength > dataList.length
+                     ? dataList.length
+                     : page * tableLength}{' '}
+                  of {dataList.length} entries (filtered from{' '}
+                  {Object.keys(data).length} total entries)
+               </div>
+            )}
+
             {dataList.length > tableLength ? (
                <div className={styles.pagesList}>
-                  Prev
+                  {page === 1 ? (
+                     <></>
+                  ) : (
+                     <img
+                        src={backIcone}
+                        alt="Prev"
+                        onClick={() => {
+                           setPage(page - 1);
+                        }}
+                     />
+                  )}
+
                   {[...Array(Math.ceil(dataList.length / tableLength))].map(
                      (_e, i) => {
                         return (
-                           <button key={i} onClick={() => setPage(i + 1)}>
+                           <button
+                              className={`${styles.pageButton} ${
+                                 page === i + 1 ? styles.activePage : ''
+                              }`}
+                              key={i}
+                              onClick={() => setPage(i + 1)}
+                           >
                               {i + 1}
                            </button>
                         );
                      }
                   )}
-                  Next
+                  {page === Math.ceil(dataList.length / tableLength) ? (
+                     <></>
+                  ) : (
+                     <img
+                        src={nextIcone}
+                        alt="Next"
+                        onClick={() => {
+                           setPage(page + 1);
+                        }}
+                     />
+                  )}
                </div>
             ) : (
                <></>

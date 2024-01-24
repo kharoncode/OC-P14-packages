@@ -6,6 +6,7 @@
    height: 50px;
    cursor: pointer;
    gap: 5px;
+   font-weight: 500;
 }
 
 .item img {

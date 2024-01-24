@@ -9,6 +9,13 @@
    padding-left: 10px;
    width: 150px;
    height: 30px;
+   border-radius: 5px;
+}
+
+.container img {
+   filter: invert(34%) sepia(42%) saturate(926%) hue-rotate(203deg)
+      brightness(93%) contrast(87%);
+   cursor: pointer;
 }
 
 .reset {
