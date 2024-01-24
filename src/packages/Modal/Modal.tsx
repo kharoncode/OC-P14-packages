@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import closeIcone from '../../assets/icones/close.svg';
 import styles from './modal.module.css';
+import customStyle from '../utils/customStyle';
 
 type propsType = {
    open: boolean;
@@ -21,28 +22,11 @@ export const Modal = (props: propsType) => {
    }, [open]);
 
    useEffect(() => {
-      if (background) {
-         const container = document.querySelector(
-            `.${styles.container}`
-         ) as HTMLElement;
-         Object.keys(background).map((key) => {
-            // @ts-expect-error : key in style[key] should be a number
-            container.style[key] = background[key];
-         });
-      }
+      customStyle(background, styles.container);
    }, [background]);
 
    useEffect(() => {
-      if (modal) {
-         const modalContainer = document.querySelector(
-            `.${styles.modalContainer}`
-         ) as HTMLElement;
-
-         Object.keys(modal).map((key) => {
-            // @ts-expect-error : key in style[key] should be a number
-            modalContainer.style[key] = modal[key];
-         });
-      }
+      customStyle(modal, styles.modalContainer);
    }, [modal]);
 
    return (
