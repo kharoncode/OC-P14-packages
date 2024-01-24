@@ -42,6 +42,10 @@
    gap: 5px;
 }
 
+.row:hover {
+   background-color: rgba(68, 66, 66, 0.1) !important;
+}
+
 .row:nth-child(odd) {
    background-color: rgb(117, 117, 117, 0.1);
 }
