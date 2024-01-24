@@ -5,6 +5,7 @@ import Column from './components/column/Column';
 import Search from './components/search/Search';
 import backIcone from '../../assets/icones/back.svg';
 import nextIcone from '../../assets/icones/next.svg';
+import customStyle from '../utils/customStyle';
 
 export type dataContent = {
    [key: string]: number | string;
@@ -19,6 +20,7 @@ export type columns = column[];
 type props = {
    data: data;
    columns: columns;
+   style?: { [key: string]: { [key: string]: string } };
 };
 
 const columnSelected = (isColumnSelected: string) => {
@@ -31,12 +33,13 @@ const columnSelected = (isColumnSelected: string) => {
 };
 
 export const DataTable = (props: props) => {
-   const { data, columns } = props;
+   const { data, columns, style } = props;
    const columnsId = columns.map((el) => el.data);
    const [dataList, setDataList] = useState(Object.keys(data));
    const [isColumnSelected, setIsColumnSelected] = useState('null');
    const [tableLength, setTableLength] = useState(10);
    const [page, setPage] = useState(1);
+   const maxEntriesCurrentPage = page * tableLength;
 
    useEffect(() => {
       columnSelected(isColumnSelected);
@@ -49,6 +52,14 @@ export const DataTable = (props: props) => {
       }
       /* eslint-disable */
    }, [page, dataList]);
+
+   useEffect(() => {
+      if (style) {
+         Object.keys(style).map((key) => {
+            customStyle(style[key], styles[key]);
+         });
+      }
+   }, [style]);
 
    return (
       <div className={styles.container}>
@@ -80,6 +91,7 @@ export const DataTable = (props: props) => {
                      setDataList={setDataList}
                      isColumnSelected={isColumnSelected}
                      setIsColumnSelected={setIsColumnSelected}
+                     stylesItem={`${styles.item}`}
                   />
                );
             })}
@@ -87,7 +99,7 @@ export const DataTable = (props: props) => {
          {dataList.length > 0 ? (
             <div className={styles.rowsContainer}>
                {dataList
-                  .slice((page - 1) * tableLength, page * tableLength)
+                  .slice((page - 1) * tableLength, maxEntriesCurrentPage)
                   .map((el: string) => {
                      return (
                         <div key={`${el}-row`} className={styles.row}>
@@ -115,11 +127,11 @@ export const DataTable = (props: props) => {
                   Showing{' '}
                   {dataList.length === 0
                      ? 0
-                     : page * tableLength - (tableLength - 1)}{' '}
+                     : maxEntriesCurrentPage - (tableLength - 1)}{' '}
                   to{' '}
-                  {page * tableLength > dataList.length
+                  {maxEntriesCurrentPage > dataList.length
                      ? dataList.length
-                     : page * tableLength}{' '}
+                     : maxEntriesCurrentPage}{' '}
                   of {Object.keys(data).length} entries
                </div>
             ) : (
@@ -127,11 +139,11 @@ export const DataTable = (props: props) => {
                   Showing{' '}
                   {dataList.length === 0
                      ? 0
-                     : page * tableLength - (tableLength - 1)}{' '}
+                     : maxEntriesCurrentPage - (tableLength - 1)}{' '}
                   to{' '}
-                  {page * tableLength > dataList.length
+                  {maxEntriesCurrentPage > dataList.length
                      ? dataList.length
-                     : page * tableLength}{' '}
+                     : maxEntriesCurrentPage}{' '}
                   of {dataList.length} entries (filtered from{' '}
                   {Object.keys(data).length} total entries)
                </div>
@@ -143,6 +155,7 @@ export const DataTable = (props: props) => {
                      <></>
                   ) : (
                      <img
+                        className={styles.arrowIcone}
                         src={backIcone}
                         alt="Prev"
                         onClick={() => {
@@ -170,6 +183,7 @@ export const DataTable = (props: props) => {
                      <></>
                   ) : (
                      <img
+                        className={styles.arrowIcone}
                         src={nextIcone}
                         alt="Next"
                         onClick={() => {

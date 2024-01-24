@@ -12,6 +12,7 @@ type props = {
    setDataList: React.Dispatch<React.SetStateAction<string[]>>;
    isColumnSelected: string;
    setIsColumnSelected: React.Dispatch<React.SetStateAction<string>>;
+   stylesItem: CSSModuleClasses[string];
 };
 
 const sortTable = (a: string, b: string, column: column, data: data) => {
@@ -42,6 +43,7 @@ const Column = (props: props) => {
       setDataList,
       isColumnSelected,
       setIsColumnSelected,
+      stylesItem,
    } = props;
    const [reverse, setReverse] = useState(false);
 
@@ -56,7 +58,7 @@ const Column = (props: props) => {
    return (
       <div
          key={column.data}
-         className={styles.item}
+         className={`${stylesItem} ${styles.item}`}
          onClick={() => {
             let isReverse = reverse;
             if (isColumnSelected !== column.data) {
