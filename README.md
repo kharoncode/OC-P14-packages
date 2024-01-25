@@ -20,7 +20,7 @@ To install, you can use [npm](https://npmjs.org/) or [yarn](https://yarnpkg.com)
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     children: string | JSX.Element;
-    style?: { [key: string]: { [key: string]: string } };
+    style?: { [key: string]: string };
 
 ### Prerequisites
 
@@ -58,9 +58,7 @@ and link setOpen(true) when you want to activate it
 
     Exemplte :
     const style = {
-        container:{
-            backdropFilter: `blur(5px)`;
-        }
+        container: 'container' or styles.container
     }
 
 ## DataTable
@@ -69,7 +67,7 @@ and link setOpen(true) when you want to activate it
 
     data: {[key:string]:{[key:string:string | number]}};
     columns: { title: string; data: string }[];
-    style?: { [key: string]: { [key: string]: string } };
+    style?: { [key: string]: string };
 
 ### Exemples
 
@@ -113,20 +111,12 @@ and link setOpen(true) when you want to activate it
     ]
 
     const style = {
-        container:{
-            border : "solid 2px #5955b3",
-            backgroundColor : "#fff",
-        }
+        container: 'container' or styles.container
     }
 
 ### Style Keys
 
-    container : table container
+    container : container's style
+    container_base : containre's structure
     columnsContainer : container of all column's title cells
     rowsContainer : container of all rows
-
-    Coming soon :
-        rows : container of each row
-        item : all table's cells
-        pageButton : button to select page
-        arrowIcone : arrow to select page

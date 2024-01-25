@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
-import './dataTable.css';
 import styles from './dataTable.module.css';
 import Column from './components/column/Column';
 import Search from './components/search/Search';
 import backIcone from '../../assets/icones/back.svg';
 import nextIcone from '../../assets/icones/next.svg';
-import customStyle from '../utils/customStyle';
 
 export type dataContent = {
    [key: string]: number | string;
@@ -20,15 +18,19 @@ export type columns = column[];
 type props = {
    data: data;
    columns: columns;
-   style?: { [key: string]: { [key: string]: string } };
+   style?: { [key: string]: string };
 };
 
-const columnSelected = (isColumnSelected: string) => {
-   const items_elts = document.querySelectorAll(`.${styles.item}`);
+const columnSelected = (
+   isColumnSelected: string,
+   itemClassName: string,
+   styleActiveItem: string
+) => {
+   const items_elts = document.querySelectorAll(`.${itemClassName}`);
    const columnItem_elts = document.querySelectorAll(`.${isColumnSelected}`);
    if (columnItem_elts) {
-      items_elts.forEach((el) => el.classList.remove(`active`));
-      columnItem_elts.forEach((el) => el.classList.add(`active`));
+      items_elts.forEach((el) => el.classList.remove(styleActiveItem));
+      columnItem_elts.forEach((el) => el.classList.add(styleActiveItem));
    }
 };
 
@@ -39,34 +41,41 @@ export const DataTable = (props: props) => {
    const [isColumnSelected, setIsColumnSelected] = useState('null');
    const [tableLength, setTableLength] = useState(10);
    const [page, setPage] = useState(1);
+   const [className, setClassName] = useState(styles);
    const maxEntriesCurrentPage = page * tableLength;
 
    useEffect(() => {
-      columnSelected(isColumnSelected);
-   }, [isColumnSelected]);
+      columnSelected(isColumnSelected, className.item, className.activeItem);
+   }, [isColumnSelected, className]);
 
    useEffect(() => {
       const columnItem_elts = document.querySelectorAll(`.${isColumnSelected}`);
       if (columnItem_elts) {
-         columnItem_elts.forEach((el) => el.classList.add(`active`));
+         columnItem_elts.forEach((el) =>
+            el.classList.add(className.activeItem)
+         );
       }
       /* eslint-disable */
    }, [page, dataList]);
+   /* eslint-enable */
 
    useEffect(() => {
       if (style) {
-         Object.keys(style).map((key) => {
-            customStyle(style[key], styles[key]);
+         const newStyle: { [key: string]: string } = {};
+         Object.keys(className).map((key) => {
+            newStyle[key] = style[key] ? style[key] : styles[key];
          });
+         setClassName(newStyle);
       }
-   }, [style]);
+   }, [style, className]);
 
    return (
-      <div className={styles.container}>
-         <div className={styles.headerContainer}>
-            <div className={styles.selectContainer}>
+      <div className={`${className.container} ${className.container_base}`}>
+         <div className={className.header}>
+            <div className={className.selectContainer}>
                <label htmlFor="showSelect">Show</label>
                <select
+                  className={className.selectContainer_select}
                   name="showSelect"
                   id="showSelect"
                   onChange={(e) => setTableLength(Number(e.target.value))}
@@ -80,7 +89,7 @@ export const DataTable = (props: props) => {
             </div>
             <Search data={data} setDataList={setDataList} setPage={setPage} />
          </div>
-         <div className={styles.columnsContainer}>
+         <div className={className.columnsContainer}>
             {columns.map((el: column) => {
                return (
                   <Column
@@ -91,23 +100,25 @@ export const DataTable = (props: props) => {
                      setDataList={setDataList}
                      isColumnSelected={isColumnSelected}
                      setIsColumnSelected={setIsColumnSelected}
-                     stylesItem={`${styles.item}`}
+                     styles={className}
                   />
                );
             })}
          </div>
          {dataList.length > 0 ? (
-            <div className={styles.rowsContainer}>
+            <div
+               className={`${className.rowsContainer} ${className.rowContainer_base}`}
+            >
                {dataList
                   .slice((page - 1) * tableLength, maxEntriesCurrentPage)
                   .map((el: string) => {
                      return (
-                        <div key={`${el}-row`} className={styles.row}>
+                        <div key={`${el}-row`} className={className.row}>
                            {columnsId.map((id) => {
                               return (
                                  <div
                                     key={`${el}-${id}`}
-                                    className={`${styles.item} ${id}`}
+                                    className={`${className.item} ${id}`}
                                  >
                                     {data[el][id]}
                                  </div>
@@ -118,10 +129,10 @@ export const DataTable = (props: props) => {
                   })}
             </div>
          ) : (
-            <div className={styles.noData}>No data available in table</div>
+            <div className={className.noData}>No data available in table</div>
          )}
 
-         <div className={styles.info}>
+         <div className={className.info}>
             {dataList.length === Object.keys(data).length ? (
                <div>
                   Showing{' '}
@@ -150,12 +161,12 @@ export const DataTable = (props: props) => {
             )}
 
             {dataList.length > tableLength ? (
-               <div className={styles.pagesList}>
+               <div className={className.pagesList}>
                   {page === 1 ? (
                      <></>
                   ) : (
                      <img
-                        className={styles.arrowIcone}
+                        className={className.arrowIcone}
                         src={backIcone}
                         alt="Prev"
                         onClick={() => {
@@ -168,8 +179,8 @@ export const DataTable = (props: props) => {
                      (_e, i) => {
                         return (
                            <button
-                              className={`${styles.pageButton} ${
-                                 page === i + 1 ? styles.activePage : ''
+                              className={`${className.pageButton} ${
+                                 page === i + 1 ? className.activePage : ''
                               }`}
                               key={i}
                               onClick={() => setPage(i + 1)}
@@ -183,7 +194,7 @@ export const DataTable = (props: props) => {
                      <></>
                   ) : (
                      <img
-                        className={styles.arrowIcone}
+                        className={className.arrowIcone}
                         src={nextIcone}
                         alt="Next"
                         onClick={() => {

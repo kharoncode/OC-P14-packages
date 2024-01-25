@@ -1,14 +1,21 @@
 .container {
+   --color: #5955b3;
+   --filterColor: invert(34%) sepia(42%) saturate(926%) hue-rotate(203deg)
+      brightness(93%) contrast(87%);
+
+   background-color: #fff;
+   border: solid 2px var(--color);
+   border-radius: 15px;
+}
+
+.container_base {
    display: flex;
    flex-direction: column;
    gap: 5px;
    padding: 20px;
-   background-color: #fff;
-   border: solid 2px #5955b3;
-   border-radius: 15px;
 }
 
-.headerContainer {
+.header {
    display: flex;
    justify-content: space-between;
 }
@@ -19,7 +26,7 @@
    gap: 5px;
 }
 
-.selectContainer select {
+.selectContainer_select {
    padding-left: 5px;
 }
 
@@ -29,18 +36,42 @@
    gap: 5px;
 }
 
+.column_item {
+   cursor: pointer;
+   font-weight: 500;
+   gap: 5px;
+}
+
+.column_item_arrow {
+   width: 10px;
+}
+
+.column_item_inactibeArrow {
+   filter: invert(69%) sepia(64%) saturate(3%) hue-rotate(132deg)
+      brightness(93%) contrast(91%);
+}
+
+.column_arrowsContainer {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
 .noData {
    text-align: center;
 }
 
 .rowsContainer {
+   border-top: solid 2px;
+   border-bottom: solid 2px;
+   border-color: var(--color);
+   gap: 5px;
+}
+
+.rowContainer_base {
    display: flex;
    flex-direction: column;
    padding: 15px 0;
-   border-top: solid 2px;
-   border-bottom: solid 2px;
-   border-color: #5955b3;
-   gap: 5px;
 }
 
 .row {
@@ -82,8 +113,7 @@
 .arrowIcone {
    cursor: pointer;
    width: 30px;
-   filter: invert(34%) sepia(42%) saturate(926%) hue-rotate(203deg)
-      brightness(93%) contrast(87%);
+   filter: var(--filterColor);
 }
 
 .arrowIcone:hover {
@@ -98,6 +128,10 @@
 }
 
 .activePage {
-   background-color: #6b65d3;
+   background-color: var(--color);
    color: #fff;
+}
+
+.activeItem {
+   background-color: rgba(192, 192, 192, 0.2);
 }

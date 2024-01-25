@@ -1,4 +1,3 @@
-import styles from './column.module.css';
 import { useEffect, useState } from 'react';
 import type { column, data } from '../../DataTable';
 import sortUp from '../../../../assets/icones/sortUp.svg';
@@ -12,7 +11,7 @@ type props = {
    setDataList: React.Dispatch<React.SetStateAction<string[]>>;
    isColumnSelected: string;
    setIsColumnSelected: React.Dispatch<React.SetStateAction<string>>;
-   stylesItem: CSSModuleClasses[string];
+   styles: CSSModuleClasses;
 };
 
 const sortTable = (a: string, b: string, column: column, data: data) => {
@@ -43,22 +42,23 @@ const Column = (props: props) => {
       setDataList,
       isColumnSelected,
       setIsColumnSelected,
-      stylesItem,
+      styles,
    } = props;
    const [reverse, setReverse] = useState(false);
 
    useEffect(() => {
       const columnItem_elts = document.querySelectorAll(`.${isColumnSelected}`);
       if (columnItem_elts) {
-         columnItem_elts.forEach((el) => el.classList.add(`active`));
+         columnItem_elts.forEach((el) => el.classList.add(styles.activeItem));
       }
       /* eslint-disable */
    }, [reverse]);
+   /* eslint-enable */
 
    return (
       <div
          key={column.data}
-         className={`${stylesItem} ${styles.item}`}
+         className={`${styles.item} ${styles.column_item}`}
          onClick={() => {
             let isReverse = reverse;
             if (isColumnSelected !== column.data) {
@@ -78,13 +78,25 @@ const Column = (props: props) => {
       >
          {column.title}
          {isColumnSelected !== column.data ? (
-            <img src={sort} alt="" className={styles.arrowInactive} />
+            <img
+               src={sort}
+               alt=""
+               className={`${styles.column_item_inactibeArrow} ${styles.column_item_arrow}`}
+            />
          ) : (
-            <div className={styles.arrowsContainer}>
+            <div className={styles.column_arrowsContainer}>
                {reverse ? (
-                  <img src={sortUp} alt="up" />
+                  <img
+                     className={styles.column_item_arrow}
+                     src={sortUp}
+                     alt="up"
+                  />
                ) : (
-                  <img src={sortDown} alt="down" />
+                  <img
+                     className={styles.column_item_arrow}
+                     src={sortDown}
+                     alt="down"
+                  />
                )}
             </div>
          )}

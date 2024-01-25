@@ -13,8 +13,7 @@
 }
 
 .container img {
-   filter: invert(34%) sepia(42%) saturate(926%) hue-rotate(203deg)
-      brightness(93%) contrast(87%);
+   filter: var(--filterColor);
    cursor: pointer;
 }
 
