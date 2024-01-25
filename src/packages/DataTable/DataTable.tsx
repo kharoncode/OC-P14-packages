@@ -4,6 +4,7 @@ import Column from './components/column/Column';
 import Search from './components/search/Search';
 import backIcone from '../../assets/icones/back.svg';
 import nextIcone from '../../assets/icones/next.svg';
+import { UseStyle } from '../utils/useStyle';
 
 export type dataContent = {
    [key: string]: number | string;
@@ -18,7 +19,11 @@ export type columns = column[];
 type props = {
    data: data;
    columns: columns;
-   style?: { [key: string]: string };
+   style?: {
+      container?: { [key: string]: string };
+      column?: { [key: string]: string };
+      search?: { [key: string]: string };
+   };
 };
 
 const columnSelected = (
@@ -43,6 +48,29 @@ export const DataTable = (props: props) => {
    const [page, setPage] = useState(1);
    const [className, setClassName] = useState(styles);
    const maxEntriesCurrentPage = page * tableLength;
+   const isStyleContainer = style
+      ? style.container
+         ? style.container
+         : styles
+      : styles;
+   const isStyleColumn = style
+      ? style.column
+         ? style.column
+         : styles
+      : styles;
+
+   UseStyle(isStyleContainer, styles, className, setClassName);
+   /* useEffect(() => {
+      if (style && style.container) {
+         const newStyle: { [key: string]: string } = {};
+         Object.keys(className).map((key) => {
+            newStyle[key] = style.container[key]
+               ? style.container[key]
+               : styles[key];
+         });
+         setClassName(newStyle);
+      }
+   }, [style, className]); */
 
    useEffect(() => {
       columnSelected(isColumnSelected, className.item, className.activeItem);
@@ -58,16 +86,6 @@ export const DataTable = (props: props) => {
       /* eslint-disable */
    }, [page, dataList]);
    /* eslint-enable */
-
-   useEffect(() => {
-      if (style) {
-         const newStyle: { [key: string]: string } = {};
-         Object.keys(className).map((key) => {
-            newStyle[key] = style[key] ? style[key] : styles[key];
-         });
-         setClassName(newStyle);
-      }
-   }, [style, className]);
 
    return (
       <div className={`${className.container} ${className.container_base}`}>
@@ -100,7 +118,7 @@ export const DataTable = (props: props) => {
                      setDataList={setDataList}
                      isColumnSelected={isColumnSelected}
                      setIsColumnSelected={setIsColumnSelected}
-                     styles={className}
+                     styles={isStyleColumn}
                   />
                );
             })}

@@ -1,0 +1,20 @@
+.column_item {
+   cursor: pointer;
+   font-weight: 500;
+   gap: 5px;
+}
+
+.column_item_arrow {
+   width: 10px;
+}
+
+.column_item_inactibeArrow {
+   filter: invert(69%) sepia(64%) saturate(3%) hue-rotate(132deg)
+      brightness(93%) contrast(91%);
+}
+
+.column_arrowsContainer {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}

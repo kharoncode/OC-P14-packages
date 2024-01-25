@@ -11,7 +11,7 @@ type props = {
    setDataList: React.Dispatch<React.SetStateAction<string[]>>;
    isColumnSelected: string;
    setIsColumnSelected: React.Dispatch<React.SetStateAction<string>>;
-   styles: CSSModuleClasses;
+   styles?: CSSModuleClasses;
 };
 
 const sortTable = (a: string, b: string, column: column, data: data) => {
