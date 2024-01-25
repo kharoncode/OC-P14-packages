@@ -11,7 +11,7 @@ type props = {
    setDataList: React.Dispatch<React.SetStateAction<string[]>>;
    isColumnSelected: string;
    setIsColumnSelected: React.Dispatch<React.SetStateAction<string>>;
-   styles?: CSSModuleClasses;
+   styles: CSSModuleClasses;
 };
 
 const sortTable = (a: string, b: string, column: column, data: data) => {
@@ -45,6 +45,18 @@ const Column = (props: props) => {
       styles,
    } = props;
    const [reverse, setReverse] = useState(false);
+
+   /* useEffect(() => {
+      if (style) {
+         const newStyle: { [key: string]: string } = {};
+         Object.keys(className).map((key) => {
+            newStyle[key] = style.container[key]
+               ? style.container[key]
+               : styles[key];
+         });
+         setClassName(newStyle);
+      }
+   }, [style, className]); */
 
    useEffect(() => {
       const columnItem_elts = document.querySelectorAll(`.${isColumnSelected}`);
