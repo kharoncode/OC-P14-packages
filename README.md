@@ -13,6 +13,15 @@ To install, you can use [npm](https://npmjs.org/) or [yarn](https://yarnpkg.com)
     $ npm install hrnet-packages
     $ yarn add hrnet-packages
 
+## Style props use
+
+Each package can be customised by applying your own className (ccs or module.css) to replace the default ones. There are several types of className:
+
+-  name only: contains the design
+-  base_name: contains the structure
+
+By modifying only the className, you only affect the design of the element, without affecting the structure.
+
 ## Modal
 
 ### Props Type
@@ -20,7 +29,7 @@ To install, you can use [npm](https://npmjs.org/) or [yarn](https://yarnpkg.com)
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     children: string | JSX.Element;
-    style?: { [key: string]: string };
+    customStyles?: { [key: string]: string };
 
 ### Prerequisites
 
@@ -52,13 +61,14 @@ and link setOpen(true) when you want to activate it
 
 ### Style Keys
 
-    container : container with blur effect (by default)
-    modalContainer : modal's container
-    closeButton : close's button
+    container / container_base : container with blur effect (by default)
+    modalContainer / modalContainer_base : modal's container
+    closeButton / closeButton_base : close's button
 
     Exemplte :
     const style = {
-        container: 'container' or styles.container
+        container: styles.yourContainer, (module.css)
+        modalContainer: 'yourModalContainer' (css)
     }
 
 ## DataTable
@@ -67,7 +77,15 @@ and link setOpen(true) when you want to activate it
 
     data: {[key:string]:{[key:string:string | number]}};
     columns: { title: string; data: string }[];
-    style?: { [key: string]: string };
+    customStyles?: {
+      dataTable?: { [key: string]: string };
+      column?: { [key: string]: string };
+      search?: { [key: string]: string };
+    };
+
+data : these are the data to be displayed in the table.
+columns : these are the titles of the columns in your table and the elements to which they are linked.
+customStyles : the className you wish to apply to the elements of each component
 
 ### Exemples
 
@@ -111,7 +129,8 @@ and link setOpen(true) when you want to activate it
     ]
 
     const style = {
-        container: 'container' or styles.container
+        dataTable: {container:'yourDataTableContainer'},
+        search:{searchInput:styles.yourSearchInput}
     }
 
 ### Style Keys
