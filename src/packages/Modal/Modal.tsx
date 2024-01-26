@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import closeIcone from '../../assets/icones/close.svg';
 import styles from './modal.module.css';
+import { UseStyle } from '../utils/useStyle';
 
 type propsType = {
    open: boolean;
@@ -20,15 +21,7 @@ export const Modal = (props: propsType) => {
       container.style.display = open ? 'flex' : 'none';
    }, [open, className]);
 
-   useEffect(() => {
-      if (style) {
-         const newStyle: { [key: string]: string } = {};
-         Object.keys(className).map((key) => {
-            newStyle[key] = style[key] ? style[key] : styles[key];
-         });
-         setClassName(newStyle);
-      }
-   }, [style, className]);
+   UseStyle(style, styles, className, setClassName);
 
    return (
       <div className={`${className.container} ${className.container_base}`}>
