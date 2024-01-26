@@ -29,7 +29,7 @@ By modifying only the className, you only affect the design of the element, with
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     children: string | JSX.Element;
-    customStyles?: { [key: string]: string };
+    style?: { [key: string]: string }; (optional)
 
 ### Prerequisites
 
@@ -66,7 +66,7 @@ and link setOpen(true) when you want to activate it
     closeButton / closeButton_base : close's button
 
     Exemplte :
-    const style = {
+    const yourModalStyles = {
         container: styles.yourContainer, (module.css)
         modalContainer: 'yourModalContainer' (css)
     }
@@ -77,7 +77,7 @@ and link setOpen(true) when you want to activate it
 
     data: {[key:string]:{[key:string:string | number]}};
     columns: { title: string; data: string }[];
-    customStyles?: {
+    style?: {                                       (optional)
       dataTable?: { [key: string]: string };
       column?: { [key: string]: string };
       search?: { [key: string]: string };
@@ -85,7 +85,7 @@ and link setOpen(true) when you want to activate it
 
 data : these are the data to be displayed in the table.
 columns : these are the titles of the columns in your table and the elements to which they are linked.
-customStyles : the className you wish to apply to the elements of each component
+style : the className you wish to apply to the elements of each component
 
 ### Exemples
 
@@ -128,7 +128,7 @@ customStyles : the className you wish to apply to the elements of each component
         { title: 'Zip Code', data: 'zipCode' },
     ]
 
-    const style = {
+    const yourDataTableStyles = {
         dataTable: {container:'yourDataTableContainer'},
         search:{searchInput:styles.yourSearchInput}
     }
