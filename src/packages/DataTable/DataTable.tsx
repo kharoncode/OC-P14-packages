@@ -28,14 +28,14 @@ type props = {
 
 const columnSelected = (
    isColumnSelected: string,
-   itemClassName: string,
-   styleActiveItem: string
+   cellClassName: string,
+   styleActiveCell: string
 ) => {
-   const items_elts = document.querySelectorAll(`.${itemClassName}`);
-   const columnItem_elts = document.querySelectorAll(`.${isColumnSelected}`);
-   if (columnItem_elts) {
-      items_elts.forEach((el) => el.classList.remove(styleActiveItem));
-      columnItem_elts.forEach((el) => el.classList.add(styleActiveItem));
+   const cells_elts = document.querySelectorAll(`.${cellClassName}`);
+   const columnCell_elts = document.querySelectorAll(`.${isColumnSelected}`);
+   if (columnCell_elts) {
+      cells_elts.forEach((el) => el.classList.remove(styleActiveCell));
+      columnCell_elts.forEach((el) => el.classList.add(styleActiveCell));
    }
 };
 
@@ -52,13 +52,13 @@ export const DataTable = (props: props) => {
    UseStyle(style ? style.container : undefined, styles, classes, setclasses);
 
    useEffect(() => {
-      columnSelected(isColumnSelected, classes.item_base, classes.activeItem);
+      columnSelected(isColumnSelected, classes.cell_base, classes.activeCell);
    }, [isColumnSelected, classes]);
 
    useEffect(() => {
-      const columnItem_elts = document.querySelectorAll(`.${isColumnSelected}`);
-      if (columnItem_elts) {
-         columnItem_elts.forEach((el) => el.classList.add(classes.activeItem));
+      const columnCell_elts = document.querySelectorAll(`.${isColumnSelected}`);
+      if (columnCell_elts) {
+         columnCell_elts.forEach((el) => el.classList.add(classes.activeCell));
       }
       /* eslint-disable */
    }, [page, dataList, tableLength]);
@@ -101,7 +101,7 @@ export const DataTable = (props: props) => {
                      isColumnSelected={isColumnSelected}
                      setIsColumnSelected={setIsColumnSelected}
                      style={style ? style.column : undefined}
-                     activeItem={classes.activeItem}
+                     activeCell={classes.activeCell}
                   />
                );
             })}
@@ -119,7 +119,7 @@ export const DataTable = (props: props) => {
                               return (
                                  <div
                                     key={`${el}-${id}`}
-                                    className={`${classes.item_base} ${classes.item} ${id}`}
+                                    className={`${classes.cell_base} ${classes.cell} ${id}`}
                                  >
                                     {data[el][id]}
                                  </div>

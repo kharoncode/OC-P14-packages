@@ -14,7 +14,7 @@ type props = {
    isColumnSelected: string;
    setIsColumnSelected: React.Dispatch<React.SetStateAction<string>>;
    style: CSSModuleClasses | undefined;
-   activeItem: CSSModuleClasses[string];
+   activeCell: CSSModuleClasses[string];
 };
 
 const sortTable = (a: string, b: string, column: column, data: data) => {
@@ -46,7 +46,7 @@ const Column = (props: props) => {
       isColumnSelected,
       setIsColumnSelected,
       style,
-      activeItem,
+      activeCell,
    } = props;
    const [reverse, setReverse] = useState(false);
    const [classes, setclasses] = useState(styles);
@@ -54,9 +54,9 @@ const Column = (props: props) => {
    UseStyle(style ? style : undefined, styles, classes, setclasses);
 
    useEffect(() => {
-      const columnItem_elts = document.querySelectorAll(`.${isColumnSelected}`);
-      if (columnItem_elts) {
-         columnItem_elts.forEach((el) => el.classList.add(activeItem));
+      const columnCell_elts = document.querySelectorAll(`.${isColumnSelected}`);
+      if (columnCell_elts) {
+         columnCell_elts.forEach((el) => el.classList.add(activeCell));
       }
       /* eslint-disable */
    }, [reverse]);
@@ -65,7 +65,7 @@ const Column = (props: props) => {
    return (
       <div
          key={column.data}
-         className={`${classes.item}`}
+         className={`${classes.cell}`}
          onClick={() => {
             let isReverse = reverse;
             if (isColumnSelected !== column.data) {
@@ -88,15 +88,15 @@ const Column = (props: props) => {
             <img
                src={sort}
                alt=""
-               className={`${classes.item_inactibeArrow} ${classes.item_arrow}`}
+               className={`${classes.cell_inactibeArrow} ${classes.cell_arrow}`}
             />
          ) : (
             <div className={classes.arrowsContainer}>
                {reverse ? (
-                  <img className={classes.item_arrow} src={sortUp} alt="up" />
+                  <img className={classes.cell_arrow} src={sortUp} alt="up" />
                ) : (
                   <img
-                     className={classes.item_arrow}
+                     className={classes.cell_arrow}
                      src={sortDown}
                      alt="down"
                   />

@@ -67,11 +67,12 @@
    background-color: rgba(var(--color), 0.15);
 }
 
-.item {
+.cell {
    color: #000;
 }
 
-.item_base {
+.cell_base {
+   padding: 10px;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -119,6 +120,6 @@
    background-color: rgba(var(--color));
 }
 
-.activeItem {
+.activeCell {
    background-color: rgba(119, 116, 182, 0.15);
 }

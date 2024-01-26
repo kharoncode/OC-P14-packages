@@ -1,4 +1,4 @@
-.item {
+.cell {
    display: flex;
    justify-content: center;
    align-items: center;
@@ -9,15 +9,15 @@
    gap: 5px;
 }
 
-.item:hover {
+.cell:hover {
    filter: var(--filterColor);
 }
 
-.item_arrow {
+.cell_arrow {
    width: 10px;
 }
 
-.item_inactibeArrow {
+.cell_inactibeArrow {
    filter: invert(69%) sepia(64%) saturate(3%) hue-rotate(132deg)
       brightness(93%) contrast(91%);
 }
