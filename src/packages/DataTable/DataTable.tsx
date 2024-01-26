@@ -61,7 +61,7 @@ export const DataTable = (props: props) => {
          columnItem_elts.forEach((el) => el.classList.add(classes.activeItem));
       }
       /* eslint-disable */
-   }, [page, dataList]);
+   }, [page, dataList, tableLength]);
    /* eslint-enable */
 
    return (
