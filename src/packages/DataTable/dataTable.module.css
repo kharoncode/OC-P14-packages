@@ -1,10 +1,10 @@
 .container {
-   --color: #5955b3;
+   --color: 89, 85, 179;
    --filterColor: invert(34%) sepia(42%) saturate(926%) hue-rotate(203deg)
       brightness(93%) contrast(87%);
 
    background-color: #fff;
-   border: solid 2px var(--color);
+   border: solid 2px rgba(var(--color));
    border-radius: 15px;
 }
 
@@ -15,46 +15,25 @@
    padding: 20px;
 }
 
-.header {
+.header_base {
    display: flex;
    justify-content: space-between;
 }
 
-.selectContainer {
+.selectContainer_base {
    display: flex;
    align-items: center;
    gap: 5px;
 }
 
-.selectContainer_select {
+.selectContainer_select_base {
    padding-left: 5px;
 }
 
-.columnsContainer {
+.columnsContainer_base {
    display: flex;
    justify-content: space-between;
    gap: 5px;
-}
-
-.column_item {
-   cursor: pointer;
-   font-weight: 500;
-   gap: 5px;
-}
-
-.column_item_arrow {
-   width: 10px;
-}
-
-.column_item_inactibeArrow {
-   filter: invert(69%) sepia(64%) saturate(3%) hue-rotate(132deg)
-      brightness(93%) contrast(91%);
-}
-
-.column_arrowsContainer {
-   display: flex;
-   justify-content: center;
-   align-items: center;
 }
 
 .noData {
@@ -64,31 +43,35 @@
 .rowsContainer {
    border-top: solid 2px;
    border-bottom: solid 2px;
-   border-color: var(--color);
-   gap: 5px;
+   border-color: rgba(var(--color));
 }
 
 .rowContainer_base {
    display: flex;
    flex-direction: column;
    padding: 15px 0;
+   gap: 5px;
 }
 
-.row {
+.row_base {
    display: flex;
    justify-content: space-between;
    gap: 5px;
 }
 
-.row:hover {
-   background-color: rgba(68, 66, 66, 0.1) !important;
+.row_base:hover {
+   background-color: rgba(var(--color), 0.3) !important;
 }
 
-.row:nth-child(odd) {
-   background-color: rgb(117, 117, 117, 0.1);
+.row_base:nth-child(odd) {
+   background-color: rgba(var(--color), 0.15);
 }
 
 .item {
+   color: #000;
+}
+
+.item_base {
    display: flex;
    justify-content: center;
    align-items: center;
@@ -96,7 +79,7 @@
    height: 50px;
 }
 
-.info {
+.info_base {
    display: flex;
    align-items: center;
    justify-content: space-between;
@@ -104,7 +87,7 @@
    height: 50px;
 }
 
-.pagesList {
+.pagesList_base {
    display: flex;
    align-items: center;
    gap: 8px;
@@ -128,10 +111,14 @@
 }
 
 .activePage {
-   background-color: var(--color);
+   background-color: rgba(var(--color), 0.8);
    color: #fff;
 }
 
+.activePage:hover {
+   background-color: rgba(var(--color));
+}
+
 .activeItem {
-   background-color: rgba(192, 192, 192, 0.2);
+   background-color: rgba(119, 116, 182, 0.15);
 }

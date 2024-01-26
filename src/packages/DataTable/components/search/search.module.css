@@ -1,23 +1,27 @@
-.container {
+.container_base {
    position: relative;
    display: flex;
    align-items: center;
    gap: 5px;
 }
 
-.container input {
+.searchInput {
+   border-radius: 5px;
+   outline: none;
+}
+
+.searchInput_base {
    padding-left: 10px;
    width: 150px;
    height: 30px;
-   border-radius: 5px;
 }
 
-.container img {
+.resetButton {
    filter: var(--filterColor);
    cursor: pointer;
 }
 
-.reset {
+.resetButton_base {
    position: absolute;
    width: 15px;
    right: 5px;

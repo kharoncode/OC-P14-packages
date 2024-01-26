@@ -1,17 +1,22 @@
 import { data } from '../../DataTable';
 import styles from './search.module.css';
 import reset from '../../../../assets/icones/close.svg';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { UseStyle } from '../../../utils/useStyle';
 
 type props = {
    data: data;
+   style: CSSModuleClasses | undefined;
    setDataList: React.Dispatch<React.SetStateAction<string[]>>;
    setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const Search = (props: props) => {
-   const { data, setDataList, setPage } = props;
+   const { data, style, setDataList, setPage } = props;
+   const [classes, setclasses] = useState(styles);
    const list = Object.keys(data);
+
+   UseStyle(style ? style : undefined, styles, classes, setclasses);
 
    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       let tempList = list;
@@ -46,17 +51,18 @@ const Search = (props: props) => {
    };
 
    return (
-      <div className={styles.container}>
+      <div className={classes.container_base}>
          <label htmlFor="search">Search :</label>
          <input
             id="search"
+            className={`${classes.searchInput} ${classes.searchInput_base}`}
             type="text"
             onChange={(e) => {
                handleChange(e);
             }}
          />
          <img
-            className={styles.reset}
+            className={`${classes.resetButton_base} ${classes.resetButton}`}
             src={reset}
             alt=""
             onClick={() => {

@@ -1,19 +1,28 @@
-.column_item {
+.item {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 110px;
+   height: 50px;
    cursor: pointer;
    font-weight: 500;
    gap: 5px;
 }
 
-.column_item_arrow {
+.item:hover {
+   filter: var(--filterColor);
+}
+
+.item_arrow {
    width: 10px;
 }
 
-.column_item_inactibeArrow {
+.item_inactibeArrow {
    filter: invert(69%) sepia(64%) saturate(3%) hue-rotate(132deg)
       brightness(93%) contrast(91%);
 }
 
-.column_arrowsContainer {
+.arrowsContainer {
    display: flex;
    justify-content: center;
    align-items: center;

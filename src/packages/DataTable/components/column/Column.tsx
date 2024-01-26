@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import styles from './column.module.css';
 import type { column, data } from '../../DataTable';
 import sortUp from '../../../../assets/icones/sortUp.svg';
 import sortDown from '../../../../assets/icones/sortDown.svg';
 import sort from '../../../../assets/icones/sort.svg';
+import { UseStyle } from '../../../utils/useStyle';
 
 type props = {
    column: column;
@@ -11,7 +13,8 @@ type props = {
    setDataList: React.Dispatch<React.SetStateAction<string[]>>;
    isColumnSelected: string;
    setIsColumnSelected: React.Dispatch<React.SetStateAction<string>>;
-   styles: CSSModuleClasses;
+   style: CSSModuleClasses | undefined;
+   activeItem: CSSModuleClasses[string];
 };
 
 const sortTable = (a: string, b: string, column: column, data: data) => {
@@ -42,26 +45,18 @@ const Column = (props: props) => {
       setDataList,
       isColumnSelected,
       setIsColumnSelected,
-      styles,
+      style,
+      activeItem,
    } = props;
    const [reverse, setReverse] = useState(false);
+   const [classes, setclasses] = useState(styles);
 
-   /* useEffect(() => {
-      if (style) {
-         const newStyle: { [key: string]: string } = {};
-         Object.keys(className).map((key) => {
-            newStyle[key] = style.container[key]
-               ? style.container[key]
-               : styles[key];
-         });
-         setClassName(newStyle);
-      }
-   }, [style, className]); */
+   UseStyle(style ? style : undefined, styles, classes, setclasses);
 
    useEffect(() => {
       const columnItem_elts = document.querySelectorAll(`.${isColumnSelected}`);
       if (columnItem_elts) {
-         columnItem_elts.forEach((el) => el.classList.add(styles.activeItem));
+         columnItem_elts.forEach((el) => el.classList.add(activeItem));
       }
       /* eslint-disable */
    }, [reverse]);
@@ -70,7 +65,7 @@ const Column = (props: props) => {
    return (
       <div
          key={column.data}
-         className={`${styles.item} ${styles.column_item}`}
+         className={`${classes.item}`}
          onClick={() => {
             let isReverse = reverse;
             if (isColumnSelected !== column.data) {
@@ -93,19 +88,15 @@ const Column = (props: props) => {
             <img
                src={sort}
                alt=""
-               className={`${styles.column_item_inactibeArrow} ${styles.column_item_arrow}`}
+               className={`${classes.item_inactibeArrow} ${classes.item_arrow}`}
             />
          ) : (
-            <div className={styles.column_arrowsContainer}>
+            <div className={classes.arrowsContainer}>
                {reverse ? (
-                  <img
-                     className={styles.column_item_arrow}
-                     src={sortUp}
-                     alt="up"
-                  />
+                  <img className={classes.item_arrow} src={sortUp} alt="up" />
                ) : (
                   <img
-                     className={styles.column_item_arrow}
+                     className={classes.item_arrow}
                      src={sortDown}
                      alt="down"
                   />
