@@ -65,7 +65,7 @@ const Column = (props: props) => {
    return (
       <div
          key={column.data}
-         className={`${classes.cell}`}
+         className={`${classes.cell_base} ${classes.cell}`}
          onClick={() => {
             let isReverse = reverse;
             if (isColumnSelected !== column.data) {
@@ -88,18 +88,14 @@ const Column = (props: props) => {
             <img
                src={sort}
                alt=""
-               className={`${classes.cell_inactibeArrow} ${classes.cell_arrow}`}
+               className={`${classes.inactiveArrow} ${classes.arrow}`}
             />
          ) : (
-            <div className={classes.arrowsContainer}>
+            <div className={classes.arrowsContainer_base}>
                {reverse ? (
-                  <img className={classes.cell_arrow} src={sortUp} alt="up" />
+                  <img className={classes.arrow} src={sortUp} alt="up" />
                ) : (
-                  <img
-                     className={classes.cell_arrow}
-                     src={sortDown}
-                     alt="down"
-                  />
+                  <img className={classes.arrow} src={sortDown} alt="down" />
                )}
             </div>
          )}
