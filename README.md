@@ -110,6 +110,8 @@ style?: {
     dataTable?: { [key: string]: string };
     column?: { [key: string]: string };
     search?: { [key: string]: string };
+    pageList?: { [key: string]: string };
+    tableInfo?: { [key: string]: string };
 };
 ```
 
@@ -181,11 +183,7 @@ const yourDataTableStyles = {
    -  rowContainer / rowContainer_base : contains all rows
    -  row / row_base(alone or :hover or :nth-child) : affect all rows
    -  cell / cell_base : affects all cells except those in the column header
-   -  info_base : contains an indication of the number of elements contained and displayed in the table, as well as the pages.
-   -  pagesList_base : contains page numbers and scrolling arrows
-   -  arrowIcone(alone or :hover) : scrolling arrows
-   -  pageButton : page buttons
-   -  activePage (alone or :hover) : page selected
+   -  footer_base : contains an indication of the number of elements contained and displayed in the table and page number
    -  activeCell : cells linked to the selected column
 -  column :
    -  cell / cell_base(alone or :hover) : all cells in the column header
@@ -196,3 +194,11 @@ const yourDataTableStyles = {
    -  container_base : component's container
    -  searchInput / searchInput_base : input
    -  resetButton / resetButton_base : reset button
+-  pageList :
+   -  pagesList_base : contains page numbers and scrolling arrows
+   -  arrowIcone(alone or :hover) : scrolling arrows
+   -  pageButton : page buttons
+   -  activePage (alone or :hover) : page selected
+-  tableInfo :
+   -  container / container_base : all the text
+   -  number : only the numbers

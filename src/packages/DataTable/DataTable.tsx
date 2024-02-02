@@ -2,28 +2,23 @@ import { useEffect, useState } from 'react';
 import styles from './dataTable.module.css';
 import Column from './components/column/Column';
 import Search from './components/search/Search';
-import backIcone from '../../assets/icones/back.svg';
-import nextIcone from '../../assets/icones/next.svg';
 import { UseStyle } from '../utils/useStyle';
+import PageList from './components/pageList/PageList';
+import TableInfo from './components/tableInfo/TableInfo';
+import { style } from './styleType';
 
-export type dataContent = {
-   [key: string]: number | string;
+export type data = {
+   [key: string]: {
+      [key: string]: number | string;
+   };
 };
-
-export type data = { [key: string]: dataContent };
 
 export type column = { title: string; data: string };
 
-export type columns = column[];
-
 type props = {
    data: data;
-   columns: columns;
-   style?: {
-      container?: { [key: string]: string };
-      column?: { [key: string]: string };
-      search?: { [key: string]: string };
-   };
+   columns: column[];
+   style?: style;
 };
 
 const columnSelected = (
@@ -73,7 +68,10 @@ export const DataTable = (props: props) => {
                   className={classes.selectContainer_select_base}
                   name="showSelect"
                   id="showSelect"
-                  onChange={(e) => setTableLength(Number(e.target.value))}
+                  onChange={(e) => {
+                     setTableLength(Number(e.target.value));
+                     setPage(1);
+                  }}
                >
                   <option value="10">10</option>
                   <option value="25">25</option>
@@ -133,80 +131,21 @@ export const DataTable = (props: props) => {
             <div className={classes.noData}>No data available in table</div>
          )}
 
-         <div className={classes.info_base}>
-            {dataList.length === Object.keys(data).length ? (
-               <div>
-                  Showing{' '}
-                  {dataList.length === 0
-                     ? 0
-                     : maxEntriesCurrentPage - (tableLength - 1)}{' '}
-                  to{' '}
-                  {maxEntriesCurrentPage > dataList.length
-                     ? dataList.length
-                     : maxEntriesCurrentPage}{' '}
-                  of {Object.keys(data).length} entries
-               </div>
-            ) : (
-               <div>
-                  Showing{' '}
-                  {dataList.length === 0
-                     ? 0
-                     : maxEntriesCurrentPage - (tableLength - 1)}{' '}
-                  to{' '}
-                  {maxEntriesCurrentPage > dataList.length
-                     ? dataList.length
-                     : maxEntriesCurrentPage}{' '}
-                  of {dataList.length} entries (filtered from{' '}
-                  {Object.keys(data).length} total entries)
-               </div>
-            )}
-
-            {dataList.length > tableLength ? (
-               <div className={classes.pagesList_base}>
-                  {page === 1 ? (
-                     <></>
-                  ) : (
-                     <img
-                        className={classes.arrowIcone}
-                        src={backIcone}
-                        alt="Prev"
-                        onClick={() => {
-                           setPage(page - 1);
-                        }}
-                     />
-                  )}
-
-                  {[...Array(Math.ceil(dataList.length / tableLength))].map(
-                     (_e, i) => {
-                        return (
-                           <button
-                              className={`${classes.pageButton} ${
-                                 page === i + 1 ? classes.activePage : ''
-                              }`}
-                              key={i}
-                              onClick={() => setPage(i + 1)}
-                           >
-                              {i + 1}
-                           </button>
-                        );
-                     }
-                  )}
-                  {page === Math.ceil(dataList.length / tableLength) ? (
-                     <></>
-                  ) : (
-                     <img
-                        className={classes.arrowIcone}
-                        src={nextIcone}
-                        alt="Next"
-                        onClick={() => {
-                           setPage(page + 1);
-                        }}
-                     />
-                  )}
-               </div>
-            ) : (
-               <></>
-            )}
+         <div className={classes.footer_base}>
+            <TableInfo
+               dataListLength={dataList.length}
+               dataLength={Object.keys(data).length}
+               tableLength={tableLength}
+               maxEntriesCurrentPage={maxEntriesCurrentPage}
+               style={style ? style.tableInfo : undefined}
+            />
+            <PageList
+               dataListLength={dataList.length}
+               tableLength={tableLength}
+               page={page}
+               setPage={setPage}
+               style={style ? style.pageList : undefined}
+            />
          </div>
       </div>
    );

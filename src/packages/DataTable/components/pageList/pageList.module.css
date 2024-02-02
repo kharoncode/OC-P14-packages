@@ -1,0 +1,31 @@
+.pagesList_base {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+}
+
+.arrowIcone {
+   cursor: pointer;
+   width: 30px;
+   filter: var(--filterColor);
+}
+
+.arrowIcone:hover {
+   filter: invert(22%) sepia(14%) saturate(2898%) hue-rotate(205deg)
+      brightness(94%) contrast(90%);
+}
+
+.pageButton {
+   border-radius: 5px;
+   padding: 5px 10px;
+   font-size: 1.1em;
+}
+
+.activePage {
+   background-color: rgba(var(--color), 0.8);
+   color: #fff;
+}
+
+.activePage:hover {
+   background-color: rgba(var(--color));
+}

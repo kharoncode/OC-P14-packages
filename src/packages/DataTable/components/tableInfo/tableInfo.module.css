@@ -1,0 +1,12 @@
+.container {
+   color: #000;
+}
+
+.container_base {
+   display: flex;
+   gap: 3px;
+}
+
+.number {
+   font-weight: 500;
+}

@@ -7,7 +7,14 @@ type propsType = {
    open: boolean;
    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
    children: string | JSX.Element;
-   style?: { [key: string]: string };
+   style?: {
+      container?: string;
+      container_base?: string;
+      modalContainer?: string;
+      modalContainer_base?: string;
+      closeButton?: string;
+      closeButton_base?: string;
+   };
 };
 
 export const Modal = (props: propsType) => {
