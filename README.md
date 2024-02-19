@@ -8,6 +8,7 @@
 
 -  [Introduction](#introduction)
 -  [Installation](#installation)
+-  [Using style props](#using)
 -  [Modal](#modal)
 -  [DataTable](#datatable)
 
@@ -15,11 +16,11 @@
 
 HRNet Packages is a set of packages used by the HRNet application, which is an application that manages employee files.
 
-It currently contains two components:
+It currently contains two packages:
 
--  Modal: displays a modal containing text or an element/component
+-  Modal: displays a modal containing text or a component
 
--  DataTable: displays data in the form of a table. Offers the option of sorting the elements of the table in ascending/descending order according to the category indicated at the head of the column, of performing a search to filter the elements present, and of choosing the quantity of data to be displayed per page.
+-  DataTable: displays data in the form of a table. Offers the option of sorting the elements of the table in ascending/descending order according to the category indicated at the head of the column, performing a search to filter the elements present, and choosing the quantity of data to be displayed per page.
 
 ## Instalation
 
@@ -32,41 +33,69 @@ To install, you can use [npm](https://npmjs.org/) or [yarn](https://yarnpkg.com)
 
 Each package can be customised by applying your own className (ccs or module.css) to replace the default ones. There are two types of className:
 
--  className : contains the design
--  className_base: contains the structure (Modifying it may have an impact on the architecture of the element. Do it carefully)
+| Name           | Description     |
+| --------------- | --------------------------------------------------------------------------------------------------- |
+| className  |  Affects the design          |
+| className_base       |  Modifies the structure: will have an impact on the architecture of the element.                 |
 
 By modifying only the className, you only affect the design of the element, without affecting the structure.
 
+
+---
+---
+---
+---
+
+
 ## Modal
 
-### Props Type
+### Mandatory props
 
-```ts
-open: boolean;
-setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-children: string | JSX.Element;
-style?: { [key: string]: string }; (optional)
-```
+| Name         | Type              | Description                                                                         |
+| ------------ | ----------------- | ----------------------------------------------------------------------------------- |
+| open      | boolean | A boolean value indicating whether the modal should be open or closed |
+| setOpen | boolean           | A function to manage the state of the modal when the close button is clicked.|
+| children     | React.ReactNode   | The content or components that will be displayed inside the modal.                  |
 
--  open / setOpen : boolean state
--  children : what you want to display
--  style (optional) : the className you wish to apply to the elements
+
+### Optional props for customization
+
+| Name            | Type              | Description                                                                                         |
+| --------------- | ----------------- | --------------------------------------------------------------------------------------------------- |
+| style     | object            | Containing a list of  elements for modifying the style of the modal
+
+```style?:{[key:string]:string}```
+
+| Style key           | Description     |
+| --------------- | --------------------------------------------------------------------------------------------------- |
+| container / container_base  |  container with blur effect (by default)            |
+| modalContainer / modalContainer_base       |  modal's container                 |
+| closeButton / closeButton_base     |  close's button               |
 
 ### Prerequisites
 
-before using the modal, add a useState
+Before using the modal import ```useState``` from React
+
+```js
+import { useState } from 'react';
+```
+
+And in you component create ```open``` and ```setOpen``` variable :
 
 ```js
 const [open, setOpen] = useState(false);
 ```
-
-and link setOpen(true) when you want to activate it
 
 ### Exemple
 
 ```js
 import { Modal } from 'hrnet-packages';
 import { useState } from 'react';
+
+const yourModalStyles = {
+   /*container: styles.yourContainer, (module.css)*/
+   modalContainer: 'yourModalContainer' /*(css)*/
+}
 
 const MyElement () => {
    const [ open, setOpen ] = useState(false);
@@ -75,7 +104,9 @@ const MyElement () => {
       <div>
             My Element
             <button onClick={()=>setOpen(true)}>Open Modal</button>
-            <Modal open={open} setOpen={setOpen}/>
+            <Modal open={open} setOpen={setOpen} style={yourModalStyles}>
+               <div>Your Modal !</div>
+            </Modal>
       </div>
    )
 
@@ -84,28 +115,31 @@ const MyElement () => {
 export default MyElement
 ```
 
-### Style Keys
-
--  container / container_base : container with blur effect (by default)
--  modalContainer / modalContainer_base : modal's container
--  closeButton / closeButton_base : close's button
-
-Exemple :
-
-```js
-const yourModalStyles = {
-   container: styles.yourContainer, (module.css)
-   modalContainer: 'yourModalContainer' (css)
-}
-```
+---
+---
+---
+---
 
 ## DataTable
 
-### Props Type
+### Mandatory props
 
-```ts
+| Name         | Type              | Description                                                                         |
+| ------------ | ----------------- | ----------------------------------------------------------------------------------- |
+| data      | object | An object containing the list of data to be displayed |
+| columns | array           | An object containing the list of column headings and the elements to which they are linked|
+
+```js
 data: {[key:string]:{[key:string:string | number]}};
 columns: { title: string; data: string }[];
+```
+### Optional props for customization
+
+| Name            | Type              | Description                                                                                         |
+| --------------- | ----------------- | --------------------------------------------------------------------------------------------------- |
+| style     | object           | the className you wish to apply to the elements of each component
+
+```ts
 style?: {
     dataTable?: { [key: string]: string };
     column?: { [key: string]: string };
@@ -115,16 +149,16 @@ style?: {
 };
 ```
 
--  data : these are the data to be displayed in the table.
--  columns : these are the titles of the columns in your table and the elements to which they are linked.
--  style (optional) : the className you wish to apply to the elements of each component
+
 
 ### Exemples
 
-```js
+```ts
+import { DataTable } from 'hrnet-packages';
+
 const data = {
-   parker_250427062000: {
-      id: 'peter_250427062000',
+   parker_833580000: {
+      id: 'peter_833580000',
       firstName: 'Peter',
       lastName: 'Parker',
       dateOfBirth: '1/06/1996',
@@ -135,22 +169,20 @@ const data = {
       state: 'NY',
       zipCode: '10001',
    },
-   banner_250427062000: {
-      id: 'banner_250427062000',
-      firstName: 'Bruce',
-      lastName: 'Banner',
-      dateOfBirth: '22/11/1967',
+   strange_231890400: {
+      id: 'strange_231890400',
+      firstName: 'Stephen',
+      lastName: 'Strange',
+      dateOfBirth: '17/08/1976',
       startDate: '11/04/2012',
       department: 'Engineering',
-      street: '20 Ingram Street',
+      street: '177A de la rue Bleecker',
       city: 'New York',
       state: 'NY',
       zipCode: '10001',
    },
 };
-```
 
-```js
 const columns = [
    { title: 'First Name', data: 'firstName' },
    { title: 'Last Name', data: 'lastName' },
@@ -162,13 +194,21 @@ const columns = [
    { title: 'State', data: 'state' },
    { title: 'Zip Code', data: 'zipCode' },
 ];
-```
 
-```js
 const yourDataTableStyles = {
-   dataTable: { container: 'yourDataTableContainer', cell: styles.yourCell },
-   search: { searchInput: styles.yourSearchInput },
+   dataTable: { container: 'yourDataTableContainer', cell: 'yourDataTableCell' },
+   search: { searchInput: 'yourDataTableSearchInput },
 };
+
+const YourTable = () => {
+   return (
+      <div>
+         <DataTable data={data} columns={columns} styles={yourDataTableStyles}/>
+      </div>
+   );
+};
+
+export default YourTable;
 ```
 
 ### Style Keys
