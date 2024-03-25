@@ -33,54 +33,56 @@ To install, you can use [npm](https://npmjs.org/) or [yarn](https://yarnpkg.com)
 
 Each package can be customised by applying your own className (ccs or module.css) to replace the default ones. There are two types of className:
 
-| Name           | Description     |
-| --------------- | --------------------------------------------------------------------------------------------------- |
-| className  |  Affects the design          |
-| className_base       |  Modifies the structure: will have an impact on the architecture of the element.                 |
+| Name           | Description                                                                     |
+| -------------- | ------------------------------------------------------------------------------- |
+| className      | Affects the design                                                              |
+| className_base | Modifies the structure: will have an impact on the architecture of the element. |
 
 By modifying only the className, you only affect the design of the element, without affecting the structure.
 
-
----
----
----
 ---
 
+---
+
+---
+
+---
 
 ## Modal
 
 ### Mandatory props
 
-| Name         | Type              | Description                                                                         |
-| ------------ | ----------------- | ----------------------------------------------------------------------------------- |
-| open      | boolean | A boolean value indicating whether the modal should be open or closed |
-| setOpen | boolean           | A function to manage the state of the modal when the close button is clicked.|
-| children     | React.ReactNode   | The content or components that will be displayed inside the modal.                  |
-
+| Name     | Type            | Description                                                                   |
+| -------- | --------------- | ----------------------------------------------------------------------------- |
+| open     | boolean         | A boolean value indicating whether the modal should be open or closed         |
+| setOpen  | boolean         | A function to manage the state of the modal when the close button is clicked. |
+| children | React.ReactNode | The content or components that will be displayed inside the modal.            |
 
 ### Optional props for customization
 
-| Name            | Type              | Description                                                                                         |
-| --------------- | ----------------- | --------------------------------------------------------------------------------------------------- |
-| style     | object            | Containing a list of  elements for modifying the style of the modal
+| Name  | Type   | Description                                                        |
+| ----- | ------ | ------------------------------------------------------------------ |
+| style | object | Containing a list of elements for modifying the style of the modal |
 
-```style?:{[key:string]:string}```
+`style?:{[key:string]:string}`
 
-| Style key           | Description     |
-| --------------- | --------------------------------------------------------------------------------------------------- |
-| container / container_base  |  container with blur effect (by default)            |
-| modalContainer / modalContainer_base       |  modal's container                 |
-| closeButton / closeButton_base     |  close's button               |
+![Modal Mockup](https://raw.githubusercontent.com/kharoncode/OC-P14-packages/main/src/assets/readMe/modal.jpg)
+
+| Style key                            | Description                             |
+| ------------------------------------ | --------------------------------------- |
+| container / container_base           | container with blur effect (by default) |
+| modalContainer / modalContainer_base | modal's container                       |
+| closeButton / closeButton_base       | close's button                          |
 
 ### Prerequisites
 
-Before using the modal import ```useState``` from React
+Before using the modal import `useState` from React
 
 ```js
 import { useState } from 'react';
 ```
 
-And in you component create ```open``` and ```setOpen``` variable :
+And in you component create `open` and `setOpen` variable :
 
 ```js
 const [open, setOpen] = useState(false);
@@ -116,28 +118,32 @@ export default MyElement
 ```
 
 ---
+
 ---
+
 ---
+
 ---
 
 ## DataTable
 
 ### Mandatory props
 
-| Name         | Type              | Description                                                                         |
-| ------------ | ----------------- | ----------------------------------------------------------------------------------- |
-| data      | object | An object containing the list of data to be displayed |
-| columns | array           | An object containing the list of column headings and the elements to which they are linked|
+| Name    | Type   | Description                                                                                |
+| ------- | ------ | ------------------------------------------------------------------------------------------ |
+| data    | object | An object containing the list of data to be displayed                                      |
+| columns | array  | An object containing the list of column headings and the elements to which they are linked |
 
 ```js
 data: {[key:string]:{[key:string:string | number]}};
 columns: { title: string; data: string }[];
 ```
+
 ### Optional props for customization
 
-| Name            | Type              | Description                                                                                         |
-| --------------- | ----------------- | --------------------------------------------------------------------------------------------------- |
-| style     | object           | the className you wish to apply to the elements of each component
+| Name  | Type   | Description                                                       |
+| ----- | ------ | ----------------------------------------------------------------- |
+| style | object | the className you wish to apply to the elements of each component |
 
 ```ts
 style?: {
@@ -149,7 +155,46 @@ style?: {
 };
 ```
 
+![DataTable Mockup](https://raw.githubusercontent.com/kharoncode/OC-P14-packages/main/src/assets/readMe/dataTable.jpg)
 
+| dataTable Style key                           | Description                                                                                           |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| container / container_base                    | container of dataTable                                                                                |
+| header_base                                   | contains the select for the number of data items displayed per page and the input search              |
+| selectContainer_base                          | label and input of the select                                                                         |
+| selectContainer_select_base                   | select element                                                                                        |
+| columnsContainer_base                         | contains all the column headers                                                                       |
+| noData                                        | text displayed when there is no data                                                                  |
+| rowContainer / rowContainer_base              | contains all rows                                                                                     |
+| row / row_base(alone or :hover or :nth-child) | affect all rows                                                                                       |
+| cell / cell_base                              | affects all cells except those in the column header                                                   |
+| footer_base                                   | contains an indication of the number of elements contained and displayed in the table and page number |
+| activeCell                                    | cells linked to the selected column                                                                   |
+
+| column Style key                  | Description                               |
+| --------------------------------- | ----------------------------------------- |
+| cell / cell_base(alone or :hover) | all cells in the column header            |
+| arrow                             | affect all arrows                         |
+| inactiveArrow                     | only double arrows                        |
+| arrowsContainer_base              | contain arrow when the column is selected |
+
+| search Style key               | Description           |
+| ------------------------------ | --------------------- |
+| container_base                 | component's container |
+| searchInput / searchInput_base | input                 |
+| resetButton / resetButton_base | reset button          |
+
+| pageList Style key           | Description                                |
+| ---------------------------- | ------------------------------------------ |
+| pagesList_base               | contains page numbers and scrolling arrows |
+| arrowIcone(alone or :hover)  | scrolling arrows                           |
+| pageButton                   | page buttons                               |
+| activePage (alone or :hover) | page selected                              |
+
+| tableInfo Style key        | Description      |
+| -------------------------- | ---------------- |
+| container / container_base | all the text     |
+| number                     | only the numbers |
 
 ### Exemples
 
@@ -210,35 +255,3 @@ const YourTable = () => {
 
 export default YourTable;
 ```
-
-### Style Keys
-
--  dataTable :
-   -  container / container_base : container
-   -  header_base : contains the select for the number of data items displayed per page and the input search
-   -  selectContainer_base : label and input of the select
-   -  selectContainer_select_base : select element
-   -  columnsContainer_base : contains all the column headers
-   -  noData : text displayed when there is no data
-   -  rowContainer / rowContainer_base : contains all rows
-   -  row / row_base(alone or :hover or :nth-child) : affect all rows
-   -  cell / cell_base : affects all cells except those in the column header
-   -  footer_base : contains an indication of the number of elements contained and displayed in the table and page number
-   -  activeCell : cells linked to the selected column
--  column :
-   -  cell / cell_base(alone or :hover) : all cells in the column header
-   -  arrow : affect all arrows
-   -  inactiveArrow : only double arrows
-   -  arrowsContainer_base : contain arrow when the column is selected
--  search :
-   -  container_base : component's container
-   -  searchInput / searchInput_base : input
-   -  resetButton / resetButton_base : reset button
--  pageList :
-   -  pagesList_base : contains page numbers and scrolling arrows
-   -  arrowIcone(alone or :hover) : scrolling arrows
-   -  pageButton : page buttons
-   -  activePage (alone or :hover) : page selected
--  tableInfo :
-   -  container / container_base : all the text
-   -  number : only the numbers
