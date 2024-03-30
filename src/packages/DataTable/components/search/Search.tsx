@@ -19,10 +19,11 @@ const Search = (props: props) => {
    UseStyle(style ? style : undefined, styles, classes, setclasses);
 
    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-      let tempList = list;
+      let tempList = list; /*List to be displayed in the table*/
       const values = e.target.value;
       if (values !== '') {
          values.split(' ').map((value) => {
+            /*new list created for a word*/
             const temp = list.filter((el) =>
                Object.values(data[el]).some((val) =>
                   val
@@ -32,6 +33,7 @@ const Search = (props: props) => {
                )
             );
             const newList: string[] = [];
+            /*keep only the elements in common between the original list and the list resulting from the search for a word*/
             tempList.map((el) => {
                temp.map((tempEl) => {
                   if (el === tempEl) {

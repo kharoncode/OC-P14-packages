@@ -21,6 +21,12 @@ type props = {
    style?: style;
 };
 
+/**
+ * Adds "activeCell" class to cells whose column is selected and removes it from others
+ * @param isColumnSelected
+ * @param cellClassName
+ * @param styleActiveCell
+ */
 const columnSelected = (
    isColumnSelected: string,
    cellClassName: string,
@@ -50,6 +56,7 @@ export const DataTable = (props: props) => {
       columnSelected(isColumnSelected, classes.cell_base, classes.activeCell);
    }, [isColumnSelected, classes]);
 
+   // Preserves application of "activeCell" class when changing page, length of data displayed and when searching
    useEffect(() => {
       const columnCell_elts = document.querySelectorAll(`.${isColumnSelected}`);
       if (columnCell_elts) {
